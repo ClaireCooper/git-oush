@@ -11,7 +11,7 @@ So everyone knows when you type `git oush` instead of `git push`.
 ## Installation
 
 - Clone this repo
-- Add the repo to your path variable
+- Add the src folder to your path variable
 
 ## Usage
 
