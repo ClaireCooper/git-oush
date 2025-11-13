@@ -1,0 +1,30 @@
+name: Test
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v5
+        with:
+          lfs: true
+
+      - name: Setup Bats and bats libs
+        uses: bats-core/bats-action@3.0.1
+        with:
+           support-path: ${{ github.workspace }}/test/test_helper/bats-support
+           assert-path: ${{ github.workspace }}/test/test_helper/bats-assert
+           detik-install: false
+
+      - name: Test with bats
+        shell: bash
+        run: bats test/test.bats
