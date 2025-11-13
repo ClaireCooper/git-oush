@@ -5,3 +5,4 @@ SOUND_FILE=$(ls sounds | shuf -n 1)
 
 aplay --quiet "$SOUNDS_DIR"/"$SOUND_FILE"
 
+touch /tmp/oush-flag

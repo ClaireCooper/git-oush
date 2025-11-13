@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 if [ -f $2 ]; then
-    echo oush
+    echo $2
 else
     exit 1
 fi
