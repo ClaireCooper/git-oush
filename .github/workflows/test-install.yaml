@@ -1,0 +1,29 @@
+name: Install
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v5
+        with:
+          lfs: true
+
+      - name: Install git oush
+        shell: bash
+        run: |
+          mkdir mock
+          ./install.sh mock
+
+      - name: Run
+        shell: bash
+        run: PATH=test:$PATH:mock/bin git oush

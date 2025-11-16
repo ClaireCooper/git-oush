@@ -11,7 +11,10 @@ So everyone knows when you type `git oush` instead of `git push`.
 ## Installation
 
 - Clone this repo
-- Add the src folder to your path variable
+- Navigate to the root of the repo
+- Run `./install.sh <installation location>` e.g. `./install.sh /usr/local`
+
+**Note**: You may need to run `install.sh` with `sudo` if you do not have permission to write to the installation location. The installation location must be in the PATH variable.
 
 ## Usage
 

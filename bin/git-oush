@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
-SOUNDS_DIR="$SCRIPT_DIR"/../share/git-oush
+SOUNDS_DIR="$SCRIPT_DIR"/../share/misc/git-oush
 SOUND_FILE=$(ls $SOUNDS_DIR | shuf -n 1)
 
 aplay --quiet "$SOUNDS_DIR"/"$SOUND_FILE"
