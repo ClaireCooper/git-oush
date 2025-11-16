@@ -5,7 +5,7 @@ setup() {
     load 'test_helper/bats-assert/load'
 
     DIR="$( cd "$( dirname "$BATS_TEST_FILENAME" )" >/dev/null 2>&1 && pwd )"
-    PATH="$DIR/../src:$DIR:$PATH"
+    PATH="$DIR/../bin:$DIR:$PATH"
 }
 
 @test "git oush plays sound" {
