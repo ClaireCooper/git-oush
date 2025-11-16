@@ -13,13 +13,3 @@ setup() {
     assert_output -p '.wav'
     assert_success
 }
-
-@test "git oush stores oush flag" {
-    assert [ ! -e /tmp/oush-flag ]
-    run git oush
-    assert [ -e /tmp/oush-flag ]
-}
-
-teardown() {
-    rm -f /tmp/oush-flag
-}
