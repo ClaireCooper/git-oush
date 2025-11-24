@@ -3,4 +3,19 @@ SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 SOUNDS_DIR="$SCRIPT_DIR"/../share/misc/git-oush
 SOUND_FILE=$(ls $SOUNDS_DIR | shuf -n 1)
 
-aplay --quiet "$SOUNDS_DIR"/"$SOUND_FILE"
+GAIN=0.0
+
+# update gain
+while [[ $# -gt 0 ]]; do
+  case $1 in
+    -f|--force)
+      GAIN=+20.0
+      shift
+      ;;
+    *)
+      shift
+      ;;
+  esac
+done
+
+sox "$SOUNDS_DIR"/"$SOUND_FILE" -t wav - gain $GAIN 2>/dev/null | aplay --quiet 

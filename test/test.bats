@@ -10,6 +10,18 @@ setup() {
 
 @test "git oush plays sound" {
     run git oush
-    assert_output -p '.wav'
+    assert_output -p '.wav 0.0'
+    assert_success
+}
+
+@test "git oush -f plays loud sound" {
+    run git oush -f
+    assert_output -p '.wav +20.0'
+    assert_success
+}
+
+@test "git oush --force plays loud sound" {
+    run git oush --force
+    assert_output -p '.wav +20.0'
     assert_success
 }

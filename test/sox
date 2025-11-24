@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+if [ -f $1 ]; then
+    echo $1 $6
+else
+    exit 1
+fi
