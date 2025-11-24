@@ -5,8 +5,14 @@ So everyone knows when you type `git oush` instead of `git push`.
 ## Requirements
 
 - bash
-- aplay (`apt install alsa-utils` on many distros)
+- aplay
 - git
+- sox
+
+On Ubuntu/Debian:
+```bash
+sudo apt install alsa-utils git sox
+```
 
 ## Installation
 
