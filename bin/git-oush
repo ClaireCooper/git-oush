@@ -1,21 +1,17 @@
 #!/usr/bin/env bash
-SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
-SOUNDS_DIR="$SCRIPT_DIR"/../share/misc/git-oush
-SOUND_FILE=$(ls $SOUNDS_DIR | shuf -n 1)
+play-oush $@
+cd "$PWD"
 
-GAIN=0.0
+HOOK_FILE=$(git rev-parse --show-toplevel)/.git/hooks/pre-push
+touch "$HOOK_FILE"
+first_line=$(head -n 1 "$HOOK_FILE")
 
-# update gain
-while [[ $# -gt 0 ]]; do
-  case $1 in
-    -f|--force)
-      GAIN=+20.0
-      shift
-      ;;
-    *)
-      shift
-      ;;
-  esac
-done
+# Check if the first line starts with '#'
+if [[ "$first_line" =~ ^# ]]; then
+  # Insert 'play-oush' as the second line
+  sed -i '1a play-oush' "$HOOK_FILE"
+else
+  echo 'play-oush' | cat - "$HOOK_FILE" > temp && mv temp "$HOOK_FILE"
+fi
 
-sox "$SOUNDS_DIR"/"$SOUND_FILE" -t wav - gain $GAIN 2>/dev/null | aplay --quiet 
+chmod u+x "$HOOK_FILE"
