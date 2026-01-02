@@ -2,19 +2,22 @@
 play-oush $@
 cd "$PWD"
 
-HOOK_FILE=$(git rev-parse --show-toplevel)/.git/hooks/pre-push
-touch "$HOOK_FILE"
-first_line=$(head -n 1 "$HOOK_FILE")
+hook_file=$(git rev-parse --show-toplevel)/.git/hooks/pre-push
+touch "$hook_file"
+first_line=$(head -n 1 "$hook_file")
+hook_str='git-oush'
 
 # If play-oush isn't already in the hook
-if [ -z $(grep "play-oush" "$HOOK_FILE") ]; then
+if [ -z $(grep "$hook_str" "$hook_file") ]; then
   # If the first line starts with '#'
   if [[ "$first_line" =~ ^# ]]; then
-    # Insert 'play-oush' as the second line
-    sed -i '1a play-oush' "$HOOK_FILE"
+    # Insert 'git-oush' as the second line
+    sed -i "1a $hook_str" "$hook_file"
   else
-    echo 'play-oush' | cat - "$HOOK_FILE" > temp && mv temp "$HOOK_FILE"
+    echo "$hook_str" | cat - "$hook_file" > temp && mv temp "$hook_file"
   fi
+else
+    sed -i "/$hook_str/d" "$hook_file"
 fi
 
-chmod u+x "$HOOK_FILE"
+chmod u+x "$hook_file"
