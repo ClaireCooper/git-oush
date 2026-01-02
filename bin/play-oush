@@ -27,5 +27,9 @@ while [[ $# -gt 0 ]]; do
   esac
 done
 
+if [ -z "$SOUND_FILES" ]; then
+  SOUND_FILES=$(ls $SOUNDS_DIR)
+fi
+
 SOUND_FILE=$(echo "$SOUND_FILES" | shuf -n 1)
 sox "$SOUNDS_DIR"/"$SOUND_FILE" -t wav - gain $GAIN 2>/dev/null | aplay --quiet

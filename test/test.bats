@@ -190,3 +190,36 @@ teardown() {
         assert_success
     done
 }
+
+@test "git oush with both --matilda and --paddy plays a sound" {
+    run git oush --matilda --paddy
+    assert_output -p '.wav 0.0'
+    assert_success
+    run git oush --paddy --matilda
+    assert_output -p '.wav 0.0'
+    assert_success
+}
+
+@test "git oush with --matilda and --paddy and -f plays a loud sound" {
+    run git oush --matilda --paddy -f
+    assert_output -p '.wav +20.0'
+    assert_success
+    run git oush --matilda -f --paddy
+    assert_output -p '.wav +20.0'
+    assert_success
+    run git oush -f --matilda --paddy
+    assert_output -p '.wav +20.0'
+    assert_success
+}
+
+@test "git oush with --matilda and --paddy and --force plays a loud sound" {
+    run git oush --matilda --paddy --force
+    assert_output -p '.wav +20.0'
+    assert_success
+    run git oush --matilda --force --paddy
+    assert_output -p '.wav +20.0'
+    assert_success
+    run git oush --force --matilda --paddy
+    assert_output -p '.wav +20.0'
+    assert_success
+}
