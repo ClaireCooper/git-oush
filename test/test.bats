@@ -102,3 +102,47 @@ teardown() {
     assert_output -p '.wav 0.0'
     assert_success
 }
+
+@test "git oush --paddy plays Paddy sound" {
+    for ((i=0;i<10;i++))
+    do
+        run git oush --paddy
+        assert_output -p 'paddy'
+        assert_output -p '.wav 0.0'
+        assert_success
+    done
+}
+
+@test "git oush with --paddy and -f plays loud Paddy sound" {
+    for ((i=0;i<10;i++))
+    do
+        run git oush --paddy -f
+        assert_output -p 'paddy'
+        assert_output -p '.wav +20.0'
+        assert_success
+    done
+    for ((i=0;i<10;i++))
+    do
+        run git oush -f --paddy
+        assert_output -p 'paddy'
+        assert_output -p '.wav +20.0'
+        assert_success
+    done
+}
+
+@test "git oush with --paddy and --force plays loud Paddy sound" {
+    for ((i=0;i<10;i++))
+    do
+        run git oush --paddy --force
+        assert_output -p 'paddy'
+        assert_output -p '.wav +20.0'
+        assert_success
+    done
+    for ((i=0;i<10;i++))
+    do
+        run git oush --force --paddy
+        assert_output -p 'paddy'
+        assert_output -p '.wav +20.0'
+        assert_success
+    done
+}

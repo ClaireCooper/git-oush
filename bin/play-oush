@@ -2,7 +2,7 @@
 
 SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 SOUNDS_DIR="$SCRIPT_DIR"/../share/misc/git-oush
-SOUND_FILE=$(ls $SOUNDS_DIR | shuf -n 1)
+SOUND_FILES=$(ls $SOUNDS_DIR)
 
 GAIN=0.0
 
@@ -13,10 +13,15 @@ while [[ $# -gt 0 ]]; do
       GAIN=+20.0
       shift
       ;;
+    --paddy)
+      SOUND_FILES=$(echo "$SOUND_FILES" | grep paddy)
+      shift
+      ;;
     *)
       shift
       ;;
   esac
 done
 
+SOUND_FILE=$(echo "$SOUND_FILES" | shuf -n 1)
 sox "$SOUNDS_DIR"/"$SOUND_FILE" -t wav - gain $GAIN 2>/dev/null | aplay --quiet
