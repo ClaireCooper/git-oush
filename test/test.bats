@@ -39,20 +39,32 @@ teardown() {
     assert_success
 }
 
-@test "git oush adds makes a new pre-push hook" {
+@test "git oush makes a new pre-push hook if one does not exist" {
     run git oush
     assert_file_exists .git/hooks/pre-push
     assert_file_executable .git/hooks/pre-push
     assert_file_contains .git/hooks/pre-push "play-oush"
 }
 
-@test "git oush adds git oush to pre-push hook" {
+@test "git oush adds git oush to existing pre-push hook" {
     echo "#bash" > .git/hooks/pre-push
     run git oush
     assert_file_exists .git/hooks/pre-push
     assert_file_executable .git/hooks/pre-push
     assert_file_contains .git/hooks/pre-push "play-oush"
     assert_file_contains .git/hooks/pre-push "#bash"
+}
+
+@test "multiple git oushes adds git oush to existing pre-push hook once only" {
+    run git oush
+    run git oush
+    run git oush
+    TEST_TEMP_DIR="$(temp_make)"
+    EXPECTED_PATH="$TEST_TEMP_DIR/expected-pre-push"
+    echo "play-oush" > $EXPECTED_PATH
+    assert_file_exists .git/hooks/pre-push
+    assert_file_executable .git/hooks/pre-push
+    assert_files_equal .git/hooks/pre-push "$EXPECTED_PATH"
 }
 
 @test "git oush then git push plays sound" {
