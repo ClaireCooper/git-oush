@@ -26,3 +26,7 @@ sudo apt install alsa-utils git sox
 
 - Turn your volume up
 - Run `git oush`
+
+## Testing
+
+The unit tests are written with [bats](https://bats-core.readthedocs.io/). Once bats is installed, they can be run from the root of the project with `bats test/test.bats`
