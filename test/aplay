@@ -1,3 +1,2 @@
 #!/usr/bin/env bash
-input=$(cat)
-echo "$input"
+echo "$(cat)"
