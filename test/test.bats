@@ -146,3 +146,47 @@ teardown() {
         assert_success
     done
 }
+
+@test "git oush --matilda plays Matilda sound" {
+    for ((i=0;i<10;i++))
+    do
+        run git oush --matilda
+        assert_output -p 'matilda'
+        assert_output -p '.wav 0.0'
+        assert_success
+    done
+}
+
+@test "git oush with --matilda and -f plays loud Matilda sound" {
+    for ((i=0;i<10;i++))
+    do
+        run git oush --matilda -f
+        assert_output -p 'matilda'
+        assert_output -p '.wav +20.0'
+        assert_success
+    done
+    for ((i=0;i<10;i++))
+    do
+        run git oush -f --matilda
+        assert_output -p 'matilda'
+        assert_output -p '.wav +20.0'
+        assert_success
+    done
+}
+
+@test "git oush with --matilda and -force plays loud Matilda sound" {
+    for ((i=0;i<10;i++))
+    do
+        run git oush --matilda --force
+        assert_output -p 'matilda'
+        assert_output -p '.wav +20.0'
+        assert_success
+    done
+    for ((i=0;i<10;i++))
+    do
+        run git oush --force --matilda
+        assert_output -p 'matilda'
+        assert_output -p '.wav +20.0'
+        assert_success
+    done
+}

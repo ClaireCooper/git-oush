@@ -17,6 +17,10 @@ while [[ $# -gt 0 ]]; do
       SOUND_FILES=$(echo "$SOUND_FILES" | grep paddy)
       shift
       ;;
+    --matilda)
+      SOUND_FILES=$(echo "$SOUND_FILES" | grep matilda)
+      shift
+      ;;
     *)
       shift
       ;;
