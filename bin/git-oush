@@ -6,12 +6,15 @@ HOOK_FILE=$(git rev-parse --show-toplevel)/.git/hooks/pre-push
 touch "$HOOK_FILE"
 first_line=$(head -n 1 "$HOOK_FILE")
 
-# Check if the first line starts with '#'
-if [[ "$first_line" =~ ^# ]]; then
-  # Insert 'play-oush' as the second line
-  sed -i '1a play-oush' "$HOOK_FILE"
-else
-  echo 'play-oush' | cat - "$HOOK_FILE" > temp && mv temp "$HOOK_FILE"
+# If play-oush isn't already in the hook
+if [ -z $(grep "play-oush" "$HOOK_FILE") ]; then
+  # If the first line starts with '#'
+  if [[ "$first_line" =~ ^# ]]; then
+    # Insert 'play-oush' as the second line
+    sed -i '1a play-oush' "$HOOK_FILE"
+  else
+    echo 'play-oush' | cat - "$HOOK_FILE" > temp && mv temp "$HOOK_FILE"
+  fi
 fi
 
 chmod u+x "$HOOK_FILE"
