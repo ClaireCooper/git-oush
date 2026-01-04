@@ -4,13 +4,33 @@ SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 SOUNDS_DIR="$SCRIPT_DIR"/../share/misc/git-oush
 SOUND_FILES=$(ls $SOUNDS_DIR)
 
-GAIN=0.0
+GAIN=0
 
 # update gain
 while [[ $# -gt 0 ]]; do
   case $1 in
+    -pp)
+      GAIN=$((GAIN-20))
+      shift
+      ;;
+    -p)
+      GAIN=$((GAIN-10))
+      shift
+      ;;
+    -mp)
+      GAIN=$((GAIN-5))
+      shift
+      ;;
+    -mf)
+      GAIN=$((GAIN+5))
+      shift
+      ;;
     -f|--force)
-      GAIN=+20.0
+      GAIN=$((GAIN+10))
+      shift
+      ;;
+    -ff)
+      GAIN=$((GAIN+20))
       shift
       ;;
     --paddy)
